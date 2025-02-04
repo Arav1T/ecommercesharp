@@ -6,13 +6,14 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import Body from './components/main/Body.tsx'
 import About from './components/main/About.tsx'
 import Layout from './Layout.tsx'
+import Home from './components/main/Home.tsx'
 // import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router'
 
 const router=createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<Layout/>}>
+    <Route path='/' element={<App/>}>
 
-      <Route path='' element={<Body/>}/>
+      <Route path='' element={<Home/>}/>
       <Route path='about' element={<About/>}/>
       <Route path='store' element={<Body/>}/>
 
