@@ -7,6 +7,8 @@ import Footer from './components/footer/Footer'
 import Body from './components/main/Body'
 import Heading from './components/header/Heading'
 import { CartContextProvider } from './store/ContextStore'
+import { Outlet } from 'react-router-dom'
+
 
 function App() {
   const [cartItem, setCartItem] = useState([]);
@@ -47,7 +49,8 @@ function App() {
       <div className="bg-gray-200 min-h-screen">
       <Navbar  />
       <Heading/>
-      <Body />
+      {/* <Body /> */}
+      <Outlet/>
       <Footer />
     </div>
      

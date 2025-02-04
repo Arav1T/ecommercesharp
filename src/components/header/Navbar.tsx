@@ -1,6 +1,7 @@
 
 import React, { useState } from "react";
 import { useCartContext } from "../../store/ContextStore";
+import { NavLink } from "react-router";
 
 export default function Navbar() {
   const { cartItem, deleteCartItem } = useCartContext()
@@ -37,9 +38,9 @@ export default function Navbar() {
  
       <header className="flex justify-between bg-black fixed w-full text-white p-4 z-10 top-0">
         <nav className="flex space-x-6 justify-evenly">
-          <a href="#home">HOME</a>
-          <a href="#store">STORE</a>
-          <a href="#about">ABOUT</a>
+          <NavLink to="" className={(isActive)=>`${isActive ? "text-orange-700":"text-gray-700"}`}>HOME</NavLink>
+          <NavLink to="store" className={(isActive)=>`${isActive ? "text-orange-700":"text-gray-700"}`}>STORE</NavLink>
+          <NavLink to="about" className={(isActive)=>`${isActive ? "text-orange-700":"text-gray-700"}`}>ABOUT</NavLink>
         </nav>
         <button
           className="border-2 border-gray-300 px-4 py-2 rounded"
