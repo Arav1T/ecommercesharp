@@ -1,42 +1,91 @@
-import React from 'react'
 
-export default function Navbar(props) {
-  // const [cart, setCart] = React.useState([]);
+import React, { useState } from "react";
+import { useCartContext } from "../../store/ContextStore";
 
-  // const addToCart = (product) => {
-  //   setCart([...cart, product]);
-  // };
+export default function Navbar() {
+  const { cartItem, deleteCartItem } = useCartContext()
+  const [cartVisible, setCartVisible] = useState(false);
+  const [cartItems, setCartItems] = useState([
+    {
+      title: "Colors",
+      price: 100,
+      imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
+      quantity: 2,
+    },
+    {
+      title: "Black and white Colors",
+      price: 50,
+      imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
+      quantity: 3,
+    },
+    {
+      title: "Yellow and Black Colors",
+      price: 70,
+      imageUrl: "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
+      quantity: 1,
+    },
+  ]);
+
+  const toggleCart = () => {
+    setCartVisible(!cartVisible);
+  };
+
+  
+
   return (
     <>
-    {/* <div className='flex justify-between bg-black fixed w-screen text-white p-2'>
-      <div></div>
-      <div className='flex justify-between text-2xl space-x-4'>
-      <a href="#">HOME</a>
-      <a href="#">STORE</a>
-      <a href="#">ABOUT</a>
-      </div>
-      <div>
-        <a href="#Cart">
-          <button>Cart</button>
-          <span>0</span>
-        </a>
-      </div>
-    </div>
-    <div className='bg-gray-600 text-5xl w-full absolute  h-48 text-center top-12 mt-1'>
-      <h1 className=' text-white'>The Generics</h1>
-    </div> */}
-    <header className="bg-black text-white p-4 fixed top-0 w-full flex justify-between items-center z-10">
-        <h1 className="text-2xl">The Generics</h1>
-        <nav>
-          <ul className="flex gap-6">
-            <li><a href="/" className="hover:underline">Home</a></li>
-            <li><a href="#store" className="hover:underline">Store</a></li>
-            <li><a href="#about" className="hover:underline">About</a></li>
-            <li><button className="relative bg-blue-500 px-4 py-2 rounded" onClick={() => alert("Cart clicked!")}>Cart ({props.cart.length})</button></li>
-          </ul>
+ 
+      <header className="flex justify-between bg-black fixed w-full text-white p-4 z-10 top-0">
+        <nav className="flex space-x-6 justify-evenly">
+          <a href="#home">HOME</a>
+          <a href="#store">STORE</a>
+          <a href="#about">ABOUT</a>
         </nav>
+        <button
+          className="border-2 border-gray-300 px-4 py-2 rounded"
+          onClick={toggleCart}
+        >
+          Cart <span>({cartItem.length})</span>
+        </button>
       </header>
-      
+
+    
+      {cartVisible && (
+        <div className="fixed top-16 right-4 bg-white shadow-lg p-4 w-80 rounded-lg h-screen z-10">
+          <h3 className="text-xl font-bold mb-4">Shopping Cart</h3>
+          {cartItem.length === 0 ? (
+            <p className="text-gray-600">Your cart is empty</p>
+          ) : (
+            <div className="space-y-4">
+              <button
+                    className="text-red-500 hover:text-red-700"
+                    onClick={toggleCart}
+                  >
+                    ❌
+                  </button>
+              {cartItem.map((item, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    className="w-16 h-16 object-cover rounded"
+                  />
+                  <div className="flex-1 ml-4">
+                    <h4 className="text-sm font-semibold">{item.title}</h4>
+                    <p className="text-gray-600">${item.price} x {item.quantity}</p>
+                  </div>
+                  <button
+                    className="text-red-500 hover:text-red-700"
+                    onClick={(e) => deleteCartItem(item.id)}
+                  >
+                    ❌
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </>
-  )
+  );
 }

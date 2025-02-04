@@ -5,9 +5,11 @@ import './App.css'
 import Navbar from './components/header/Navbar'
 import Footer from './components/footer/Footer'
 import Body from './components/main/Body'
+import Heading from './components/header/Heading'
+import { CartContextProvider } from './store/ContextStore'
 
 function App() {
-  const [cart, setCart] = useState([]);
+  const [cartItem, setCartItem] = useState([]);
   const products = [
     { id: 1, name: "Album 1", price: 12.99, img: "./img/Album 1.png" },
     { id: 2, name: "Album 2", price: 14.99, img: "./img/Album 2.png" },
@@ -17,19 +19,39 @@ function App() {
     { id: 6, name: "Coffee Cup", price: 6.99, img: "./img/Cofee.png" }
   ];
 
-  // const addToCart = (product) => {
-  //   setCart([...cart, product]);
-  // };
+  const addCartItem = (product) => {
+    // setCartItem([...cartItem, item]);
+
+    setCartItem((prevCart)=>{
+      const existingItem = prevCart.find((item) => item.title === product.title);
+      if (existingItem) {
+        return prevCart.map((item) =>
+          item.title === product.title ? { ...item, quantity: item.quantity + 1 } : item
+        );
+      } else {
+        return [...prevCart, { ...product, quantity: 1 }];
+      }
+    });
+  };
+
+
+  
+  const deleteCartItem=(id)=>{
+    console.log("run",id);
+    
+    setCartItem(cartItem.filter(item=>item.id!==id))
+  }
 
   return (
-  <div className="bg-gray-200 min-h-screen">
-    <Navbar cart={cart} />
-    <Body/>
-      <Footer/>
-
-  </div>
+    <CartContextProvider value={{cartItem,addCartItem, deleteCartItem}}>
+      <div className="bg-gray-200 min-h-screen">
+      <Navbar  />
+      <Heading/>
+      <Body />
+      <Footer />
+    </div>
      
-  )
+    </CartContextProvider>  )
 }
 
 export default App
