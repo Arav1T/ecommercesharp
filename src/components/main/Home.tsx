@@ -27,7 +27,7 @@ export default function Home() {
     // </div>
     <div className="text-center">
       {/* "Hello" at the top of the header */}
-      <div className="absolute top-6 z-20 left-1/2 -translate-x-1/2 bg-white px-4 py-2 shadow-md rounded-md">
+      <div className="absolute top-48 z-20 left-1/2 -translate-x-1/2 bg-white px-4 py-2 shadow-md rounded-md">
         hello
       </div>
 

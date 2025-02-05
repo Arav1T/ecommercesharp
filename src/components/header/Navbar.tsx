@@ -41,6 +41,7 @@ export default function Navbar() {
           <NavLink to="" className={({isActive})=>`${isActive ? "text-orange-700":"text-gray-700"}`}>HOME</NavLink>
           <NavLink to="store" className={({isActive})=>`${isActive ? "text-orange-700":"text-gray-700"}`}>STORE</NavLink>
           <NavLink to="about" className={({isActive})=>`${isActive ? "text-orange-700":"text-gray-700"}`}>ABOUT</NavLink>
+          <NavLink to="apicheck" className={({isActive})=>`${isActive ? "text-orange-700":"text-gray-700"}`}>APICHECK</NavLink>
         </nav>
         <button
           className="border-2 border-gray-300 px-4 py-2 rounded"
