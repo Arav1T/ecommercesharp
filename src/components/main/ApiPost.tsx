@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 export default function ApiPost() {
+    const [show, setShow] = React.useState(false)
     const [data, setData] = useState({
         formData: { name: "", height: "", skin_color: "" },
         storedData: []
@@ -14,7 +15,18 @@ export default function ApiPost() {
             formData: { ...prev.formData, [id]: value } 
         }));
     };
-
+     const apiAdd=async ()=>{
+        const response = await fetch("https://react-http-c3fe2-default-rtdb.firebaseio.com/movies.json",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body:JSON.stringify(data.formData)
+            }
+        )
+        const d = await response.json()
+        console.log(d.name.name);
+        
+    }
     const handleOnSubmit = (e) => {
         e.preventDefault();
 
@@ -22,10 +34,18 @@ export default function ApiPost() {
             formData: { name: "", height: "", skin_color: "" }, 
             storedData: [...prev.storedData, prev.formData] 
         }));
+        apiAdd()
+        handleShow()
     };
+    const handleShow=()=>{
+setShow(!show)
+    }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-gray-100">
+        <>
+        {!show && <button onClick={handleShow}>Add Show</button>
+        }
+        {show && <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-gray-100">
             <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-96">
                 <h2 className="text-lg font-bold text-gray-300 mb-4">Add Details</h2>
 
@@ -74,6 +94,7 @@ export default function ApiPost() {
                     </ul>
                 )}
             </div>
-        </div>
+        </div>}
+        </>
     );
 }

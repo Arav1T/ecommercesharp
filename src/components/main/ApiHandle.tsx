@@ -6,23 +6,25 @@ export default function ApiHandle() {
     const [isloading, setIsloading] =React.useState(false)
     const [data, setData] = React.useState([])
     React.useEffect
-    const apicall=async ()=>{
+    const apicall=React.useCallback(async ()=>{
+        console.log("chal")
         setIsloading(true)
         setError(null)
         try {
-            const response = await fetch("https://swapi.dev/api/peopless/")
-            // if(!response){
-            //     throw new Error("Something went wrong ....Retrying")
-            // }
+            // const response = await fetch("https://swapi.dev/api/people/")
+            const response = await fetch("https://react-http-c3fe2-default-rtdb.firebaseio.com/movies.json")
+            if(!response.ok){
+                throw new Error("Something went wrong ....Retrying")
+            }
             const data = await response.json()
-            console.log(data.results)
-            setData(data.results)
+            console.log(Object.values(data))
+            setData(Object.values(data))
             setIsloading(false)
         } catch (error) {
             setError(error.message)
             setIsloading(false)
         }
-    }
+    },[])
     // React.useEffect(()=>apicall,[])
     let content = "Nothing availbale"
     if (isloading) {
