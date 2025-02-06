@@ -19,7 +19,9 @@ const router=createBrowserRouter(
       <Route path='about' element={<About/>}/>
       <Route path='store' element={<Body/>}/>
       <Route path='apicheck' element={<ApiHandle/>}/>
-      <Route path='user/:userId' element={<CustomUserCall/>}/>
+      <Route path='user/:userId' element={<CustomUserCall/>}>
+       <Route path='/about' element={<About/>}/>
+      </Route>
 
     </Route>
   )

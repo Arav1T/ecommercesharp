@@ -1,5 +1,6 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { Route, Routes, useParams } from 'react-router-dom'
+import About from './About'
 
 export default function CustomUserCall() {
     const {userId}=useParams()
@@ -7,6 +8,7 @@ export default function CustomUserCall() {
   return (
     <div>
       user: {userId}
+     
       {/* user: {param.userId} */}
     </div>
   )
