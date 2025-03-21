@@ -4,6 +4,7 @@ import { useCartContext } from "../../store/ContextStore";
 import { NavLink } from "react-router";
 
 export default function Navbar() {
+  const {logout}=useCartContext()
   const { cartItem, deleteCartItem } = useCartContext()
   const [cartVisible, setCartVisible] = useState(false);
   const [cartItems, setCartItems] = useState([
@@ -49,6 +50,10 @@ export default function Navbar() {
         >
           Cart <span>({cartItem.length})</span>
         </button>
+        <button onClick={()=>{localStorage.removeItem("token") 
+          console.log("click");
+          logout()
+        }}>Logout</button>
       </header>
 
     

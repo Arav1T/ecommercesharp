@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useBlocker } from "react-router-dom"
 
 export default function ApiPost() {
+    const [formCheck, setFormCheck] = useState(false)
     const [show, setShow] = React.useState(false)
     const [data, setData] = useState({
         formData: { name: "", height: "", skin_color: "" },
@@ -36,20 +38,30 @@ export default function ApiPost() {
         }));
         apiAdd()
         handleShow()
+        setFormCheck(false)
     };
     const handleShow=()=>{
 setShow(!show)
     }
-
+    const handleOnFocus =()=>{
+        setFormCheck(true)
+    }
+    useBlocker(() => {
+        if (formCheck) {
+            return window.confirm("You have unsaved changes. Do you really want to leave?");
+        }
+        return true;
+    });
     return (
         <>
+        {/* <Prompt When={formCheck} message="If you move from here you will lose all data"/> */}
         {!show && <button onClick={handleShow}>Add Show</button>
         }
         {show && <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-gray-100">
             <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-96">
                 <h2 className="text-lg font-bold text-gray-300 mb-4">Add Details</h2>
 
-                <form onSubmit={handleOnSubmit} className="flex flex-col space-y-3">
+                <form onFocus={handleOnFocus} onSubmit={handleOnSubmit} className="flex flex-col space-y-3">
                     <label htmlFor="name" className="text-gray-400">Name:</label>
                     <input 
                         type="text" id="name" value={data.formData.name} 
